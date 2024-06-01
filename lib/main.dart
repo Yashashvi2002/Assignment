@@ -17,7 +17,9 @@ import 'ordinary_title1.dart';
 import 'ordinary_title2.dart';
 //import 'ordinary_title3.dart';filal ke liye
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
