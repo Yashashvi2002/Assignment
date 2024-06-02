@@ -1,36 +1,47 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../Themes/constants.dart';
 
 class TaskContainer extends StatelessWidget {
   final int totalTasks;
   final int completedTasks;
 
   const TaskContainer({
-    Key? key,
+    super.key,
     required this.totalTasks,
     required this.completedTasks,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final double completionPercentage = totalTasks > 0 ? completedTasks / totalTasks : 0;
     return SafeArea(
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(context, 'task_list_page'),
+        onTap: () => Navigator.pushNamed(
+          context,
+          'task_list_page',
+          arguments: {
+            'totalTasks': totalTasks,
+            'completedTasks': completedTasks,
+          },
+        ),
         child: Container(
           height: 80.0,
           width: 360.0,
           decoration: BoxDecoration(
-            color: kPrimaryColor, // Assuming kPrimaryColor is blue
+            color: k1PrimaryColor,
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
                 spreadRadius: 3.0,
                 blurRadius: 5.0,
-                offset: const Offset(0, 3),
+                offset: const Offset(3, 3),
+              ),
+              BoxShadow(
+                color: Colors.white,
+                spreadRadius: 3.0,
+                blurRadius: 5.0,
+                offset: const Offset(-3, -3),
               ),
             ],
           ),
@@ -41,31 +52,36 @@ class TaskContainer extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: kPrimaryColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 10.0,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    color: k1PrimaryColor,
+                    boxShadow: kShadow,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: kPrimaryColor,
+                        color: k1PrimaryColor,
+                        boxShadow: kShadow,
                       ),
                       child: Center(
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            CircularProgressIndicator(
-                              backgroundColor: Colors.black.withOpacity(0.07),
-                              strokeWidth: 5.0,
-                              value: completionPercentage,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                            Container(
+                                decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                  color: k1PrimaryColor,
+                                  boxShadow: kShadow,
+                                ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0.5),
+                                child: CircularProgressIndicator(
+                                  backgroundColor: Colors.black.withOpacity(0.1),
+                                  strokeWidth: 10.0,
+                                  value: completionPercentage,
+                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: 50.0,
@@ -75,7 +91,7 @@ class TaskContainer extends StatelessWidget {
                                   "${(completionPercentage * 100).toStringAsFixed(1)}%",
                                   style: const TextStyle(
                                     color: Colors.blue,
-                                    fontSize: 10.0,
+                                    fontSize: 8.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

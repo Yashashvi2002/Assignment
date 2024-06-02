@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'Themes/constants.dart';
 
 class Openlist extends StatefulWidget {
   const Openlist({super.key});
@@ -12,36 +11,52 @@ class Openlist extends StatefulWidget {
 class _OpenlistState extends State<Openlist> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: GestureDetector(
-        onTap: () {},
-        child: Container(
-          height: 30.0,
-          width: 100.0,
-          decoration: BoxDecoration(
-            color: kPrimaryLightColor,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 3.0, // Adjust for desired shadow spread
-                blurRadius: 5.0, // Adjust for desired shadow blur
-                offset: Offset(0, 3), // Adjust for shadow position
-              )
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(3.0),
-            child: Column(
-              children: [
-                Center(child: Text("Open List"))
-              ],
+    return Column(
+      children: [
+        Center(
+          child: GestureDetector(
+            onTap: () {},
+            child: Container(
+              height: 30.0,
+              width: 200.0,
+              decoration: BoxDecoration(
+                color: kPrimaryLightColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                boxShadow: kShadow,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(3.0),
+                child: Column(
+                  children: [
+                    Center(child: Text("Open List"))
+                  ],
+                ),
+              ),
             ),
           ),
         ),
-      ),
+        const SizedBox(height: 25,),
+        Container(
+          height: 1.0,
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.2),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 1.5,
+                blurRadius: 5.0,
+                offset: const Offset(3, 3),
+              ),
+              BoxShadow(
+                color: Colors.white,
+                spreadRadius: 3.0,
+                blurRadius: 5.0,
+                offset: const Offset(-3, -3),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
-
-

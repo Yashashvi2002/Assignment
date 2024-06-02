@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -7,7 +6,7 @@ class CustomIconButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
 
-  CustomIconButton({required this.icon, required this.onPressed});
+  const CustomIconButton({super.key, required this.icon, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class CustomIconButton extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
               blurRadius:10,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),

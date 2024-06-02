@@ -1,23 +1,26 @@
 import 'dart:io';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'Themes/constants.dart';
+
+// Profile setting is here along with Camera setting
 
 class SettingsPage extends StatefulWidget {
   final String initialName;
   final File? initialImage;
 
 
-  SettingsPage({required this.initialName, required this.initialImage});
+  const SettingsPage({super.key, required this.initialName, required this.initialImage});
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final _picker = ImagePicker();
-  final _formKey = GlobalKey<FormState>();
+  final _picker = ImagePicker();  // ImagePicker instance to pick image from gallery
+  final _formKey = GlobalKey<FormState>();  // GlobalKey instance for form state// GlobalKey instance for form state
+
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -30,6 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
     imageFile = widget.initialImage;
   }
 
+  // Method to pick and crop image
   Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -65,49 +69,77 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
-            children: <Widget>[
+            children:[
               GestureDetector(
                 onTap: _pickImage,
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: imageFile != null
-                      ? FileImage(imageFile!)
-                      : AssetImage('assets/Images/profile.png') as ImageProvider,
-                  backgroundColor: Colors.grey.shade200,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: kShadow,
+                  ),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.grey.shade200,
+                    child: Transform.scale(
+                      scale: 1, // Adjust this value to change the size of the image
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundImage: imageFile != null
+                            ? FileImage(imageFile!)
+                            : const AssetImage('assets/Images/profile.png') as ImageProvider,
+                        backgroundColor: Colors.transparent,
+                      ),
+                    ),
+                  ),
                 ),
+
               ),
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 onSaved: (value) => nameController.text = value!,
               ),
               TextFormField(
                 controller: emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 onSaved: (value) => emailController.text = value!,
               ),
               TextFormField(
                 controller: phoneController,
-                decoration: InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(labelText: 'Phone Number'),
                 onSaved: (value) => phoneController.text = value!,
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('Save'),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    Navigator.pop(context, {'imageUrl': imageFile?.path, 'name': nameController.text});
-                  }
-                },
-              ),
+              const SizedBox(height: 30),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      Navigator.pop(context, {'imageUrl': imageFile?.path, 'name': nameController.text});
+                    }
+                  },
+                  child: Container(
+                    height: 30.0,
+                    width: 200.0,
+                    decoration: BoxDecoration(
+                      color: kPrimaryLightColor,
+                      borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                      boxShadow: kShadow,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Center(child: Text("Save")),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),

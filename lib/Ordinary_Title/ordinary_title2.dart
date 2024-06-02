@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrdinaryTitle2 extends StatefulWidget {
@@ -17,12 +16,12 @@ class _OrdinaryTitle2State extends State<OrdinaryTitle2> {
         Container(
           height: 80.0,
           width: 360.0,
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10.0), // This makes the corners rounded
           ),
-          child: Text(
+          child: const Text(
             'This is a state box with a message, showing that the section is empty right now',
             textAlign: TextAlign.center,
             style: TextStyle(
